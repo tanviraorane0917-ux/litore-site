@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Litore | Eau de Parfum, inspired by the sea</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FCF5E4;--gold:#8A6A1F;--navy:#17304F;--sea:#2E6F8E;--line:rgba(23,48,79,.16)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;font-weight:300;background:var(--cream);color:var(--navy);line-height:1.65}
+h1,h2,h3,.logo{font-family:'Cormorant Garamond',serif;font-weight:500}
+button{font:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+header{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:10px 5vw;background:rgba(252,245,228,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.logo{font-size:1.9rem;letter-spacing:.08em;color:var(--gold);text-decoration:none}
+nav{display:flex;gap:20px;align-items:center;font-size:.95rem}
+nav a{text-decoration:none}
+.pill{background:none;border:1px solid var(--navy);color:var(--navy);padding:6px 14px;border-radius:99px}
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:center;gap:30px;padding:50px 5vw}
+.hero h1{font-size:clamp(3rem,8vw,6rem);letter-spacing:.06em;color:var(--gold);line-height:1}
+.hero .sub{font-size:.85rem;letter-spacing:.2em;margin:6px 0 20px}
+.hero p.lead{max-width:36ch;margin-bottom:26px;font-size:1.15rem}
+.hero img{width:100%;max-width:440px;justify-self:center;border-radius:4px;box-shadow:0 30px 50px -22px rgba(23,48,79,.4)}
+.btn{display:inline-block;background:var(--navy);color:#fff;border:0;padding:13px 30px;border-radius:99px;text-decoration:none;font-weight:600}
+.btn.gold{background:var(--gold)}
+section{padding:80px 5vw}
+.head{max-width:60ch;margin-bottom:36px}
+.head h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:6px;color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+.card{display:flex;flex-direction:column;gap:8px;background:#fff;padding:12px 12px 18px;border-radius:4px}
+.card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px;display:block}
+.card h3{font-size:1.7rem;color:var(--navy);line-height:1.1;margin-top:6px}
+.coord{font-size:.78rem;letter-spacing:.06em;color:var(--sea)}
+.notes{font-size:.92rem}
+select{font:inherit;padding:9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--navy);min-width:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px}
+.finder{background:var(--navy);color:#fff}
+.finder .head h2{color:#E9D28F}
+.finder .box{max-width:640px;margin:auto}
+.q{font-family:'Cormorant Garamond',serif;font-size:1.8rem;margin-bottom:16px}
+.opts{display:grid;gap:12px}
+.opts button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:14px 18px;border-radius:8px;text-align:left}
+.opts button:hover{background:rgba(255,255,255,.12)}
+.result{border:1px solid #E9D28F;padding:26px;border-radius:8px;display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center}
+.result img{width:100%;border-radius:3px}
+.result h3{font-size:2.2rem;color:#fff;line-height:1.1}
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:center}
+.about p{max-width:52ch;margin-bottom:14px}
+.about img{width:min(340px,90%);justify-self:center;box-shadow:0 20px 40px -20px rgba(23,48,79,.4)}
+form{display:grid;gap:12px;max-width:520px}
+input,textarea{font:inherit;padding:12px;border:1px solid var(--line);background:#fff;border-radius:6px;color:var(--navy)}
+footer{padding:30px 5vw;border-top:1px solid var(--line);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#fff;box-shadow:-10px 0 40px rgba(0,0,0,.2);padding:22px;transform:translateX(105%);transition:transform .3s;z-index:20;display:flex;flex-direction:column;overflow:auto}
+.drawer.open{transform:none}
+.item{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+.item button{background:none;border:0;text-decoration:underline;font-size:.85rem;color:var(--navy)}
+.drawer form{margin-top:14px;gap:10px}
+.drawer .fh{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gold);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wa{position:fixed;right:18px;bottom:18px;z-index:15;display:flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;font-weight:600;padding:12px 18px;border-radius:99px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.wa svg{width:22px;height:22px;fill:#fff}
+.chatbtn{position:fixed;left:18px;bottom:18px;z-index:15;background:var(--navy);color:#fff;border:0;padding:12px 20px;border-radius:99px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.chat{position:fixed;left:18px;bottom:18px;z-index:25;width:min(370px,calc(100vw - 36px));height:min(520px,calc(100vh - 36px));background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex}
+.chat-h{background:var(--navy);color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.chat-h strong{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500}
+.chat-h button{background:none;border:0;color:#fff;font-size:1.4rem;line-height:1}
+.msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--cream)}
+.m{max-width:85%;padding:9px 13px;border-radius:14px;font-size:.93rem;white-space:pre-wrap}
+.m.bot{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.m.me{background:var(--gold);color:#fff;align-self:flex-end}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0;background:var(--cream)}
+.chips button{background:#fff;border:1px solid var(--gold);color:var(--gold);border-radius:99px;padding:4px 12px;font-size:.82rem}
+.chat form{display:flex;gap:8px;max-width:none;padding:10px;border-top:1px solid var(--line);background:#fff}
+.chat form input{flex:1;min-width:0;padding:10px}
+.chat form button{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:0 16px}
+@media(max-width:560px){.result{grid-template-columns:1fr}.result img{max-width:140px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#top">LITORE</a>
+  <nav>
+    <a href="#shop">Shop</a><a href="#finder">Find my scent</a><a href="#about">Our story</a><a href="#contact">Contact</a>
+    <button class="pill" id="cartBtn" aria-label="Open cart">Cart (<span id="count">0</span>)</button>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div>
+      <h1>LITORE</h1>
+      <p class="sub">EAU DE PARFUM</p>
+      <p class="lead">Inspired by the sea. Made to be remembered.</p>
+      <a class="btn gold" href="#shop">Shop the collection</a>
+    </div>
+    <img src="img/hero.jpg" alt="Litore Paradise eau de parfum resting on pale fabric against a blue sky">
+  </div>
+
+  <section id="shop">
+    <div class="head"><h2>The collection</h2><p>Four fragrances, each named for a coastline. Choose a size and add it to your cart.</p></div>
+    <div class="grid" id="products"></div>
+  </section>
+
+  <section class="finder" id="finder">
+    <div class="box">
+      <div class="head"><h2>Find your Litore</h2><p>Three quick questions.</p></div>
+      <div id="quiz"></div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <div>
+        <h2 style="font-size:clamp(2rem,5vw,3rem);margin-bottom:14px;color:var(--gold)">Born by the sea</h2>
+        <p>Litore is a fragrance born by the sea, a tribute to nature's raw and timeless beauty.</p>
+        <p>Every bottle is labelled with the coordinates of the shore that inspired it. Spray on pulse points for long-lasting fragrance.</p>
+      </div>
+      <img src="img/box-front.jpg" alt="Front of the Litore eau de parfum box, with wave, turtle and shell illustration">
+    </div>
+  </section>
+
+  <section id="contact" style="background:#fff">
+    <div class="head"><h2>Talk to us</h2><p>Questions, bulk orders, or help with an order.</p></div>
+    <form id="contactForm">
+      <input name="name" placeholder="Your name" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <textarea name="msg" rows="4" placeholder="Your message" required></textarea>
+      <button class="btn" type="submit">Send message</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="yr"></span> Litore Perfumes Pvt. Ltd.<br>Om Nagar, Andheri (East), Mumbai - 400059</span>
+  <span>Instagram: <a href="https://instagram.com/litore.social" target="_blank" rel="noopener">litore.social</a><br><span id="contactInfo"></span><br>Call or WhatsApp: <a href="tel:+917738740114">+91 77387 40114</a></span>
+</footer>
+
+<button class="chatbtn" id="chatOpen">Ask Litore</button>
+<section class="chat" id="chat" aria-label="Litore assistant" style="padding:0">
+  <div class="chat-h"><strong>Litore assistant</strong><button id="chatClose" aria-label="Close chat">×</button></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form id="chatForm"><input id="chatInput" placeholder="Ask about scents, sizes, prices..." autocomplete="off" required><button type="submit">Send</button></form>
+</section>
+
+<a class="wa" id="waBtn" href="#" target="_blank" rel="noopener" aria-label="Chat with Litore on WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.3.7 4.5 1.9 6.3L4 29l8-2.1c1.7.9 3.5 1.4 5.5 1.4h.1C24.2 28.3 29 23 29 16.4 29 9.6 23.2 3 16 3zm0 22.4c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.7 1.2 1.3-4.6-.3-.5c-1.1-1.6-1.7-3.5-1.7-5.4C5.2 9.600 10 5.200 16 5.200c5.900 0 10.800 4.800 10.800 10.700S22 25.400 16 25.400zm5.900-8c-.3-.2-1.900-.9-2.200-1-.3-.1-.5-.2-.7.2-.2.300-.8 1-1 1.200-.2.200-.4.200-.700.100-.3-.2-1.400-.5-2.600-1.600-1-.9-1.600-1.900-1.800-2.200-.2-.3 0-.5.100-.7l.5-.6c.2-.2.200-.3.300-.5.100-.2.100-.4 0-.5-.1-.2-.7-1.700-1-2.300-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.100-.8.400-.3.300-1 1-1 2.500s1.100 2.900 1.200 3.100c.2.200 2.100 3.300 5.200 4.500 3 1.200 3 .8 3.600.8.600-.1 1.900-.8 2.200-1.500.3-.7.300-1.400.2-1.500-.1-.2-.3-.2-.6-.4z"/></svg>
+  Chat on WhatsApp
+</a>
+
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <h3 style="font-size:1.8rem;margin-bottom:8px;color:var(--gold)">Your cart</h3>
+  <div id="items"></div>
+  <p style="margin:14px 0 0"><strong>Total: <span id="total">₹0</span></strong></p>
+  <form id="orderForm">
+    <p class="fh">Delivery details</p>
+    <input name="name" placeholder="Full name" autocomplete="name" required>
+    <input name="phone" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter a 10-digit mobile number" placeholder="Mobile number (10 digits)" autocomplete="tel-national" required>
+    <input name="flat" placeholder="Flat / Room / House no." autocomplete="address-line1" required>
+    <input name="building" placeholder="Building / Society / Street" autocomplete="address-line2" required>
+    <input name="area" placeholder="Area / Locality" required>
+    <input name="landmark" placeholder="Landmark (optional), e.g. near the temple">
+    <div class="two">
+      <input name="city" placeholder="City" autocomplete="address-level2" required>
+      <input name="pin" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" title="Enter a 6-digit pincode" placeholder="Pincode" autocomplete="postal-code" required>
+    </div>
+    <input name="state" placeholder="State" autocomplete="address-level1" required>
+    <button class="btn gold" type="submit">Place order on WhatsApp</button>
+  </form>
+  <button class="pill" id="closeCart" style="margin-top:10px">Keep shopping</button>
+</aside>
+
+<script>
+// ===== EDIT THESE =====
+const WHATSAPP = "917738740114";        // your number: country code + number, no + or spaces
+const EMAIL = "tanviraorane23@gmail.com";        // your business email
+const SIZES = {10:199, 20:399, 50:599, 100:1099};   // ml : price in ₹
+const PRODUCTS = [   // names and coordinates are from your bottles; notes are one-line mood descriptions
+  {id:1, name:"Muro Alto",  coord:"8.4295° S, 30.0722° W",   img:"img/muro-alto.jpg",  notes:"A calm, breezy escape, fresh and green like a quiet walk by the shore at sunrise.",       mood:"green",  vibe:"day"},
+  {id:2, name:"Paradise",   coord:"11.87° N, 76.82° E",       img:"img/paradise.jpg",   notes:"Soft, sun-warmed and dreamy, like a slow golden evening on a palm-lined beach.", mood:"floral", vibe:"night"},
+  {id:3, name:"Greenfield", coord:"35.087° S, 150.695° E",    img:"img/greenfield.jpg", notes:"Clean, bright and refreshing, like clear water and a cool sea breeze.",mood:"fresh",  vibe:"day"},
+  {id:4, name:"Copacabana", coord:"22.9713° S, 43.1828° W",   img:"img/copacabana.jpg", notes:"Warm, lively and golden, like a sunny beach day that glows into the night.",     mood:"warm",   vibe:"night"}
+];
+// ======================
+const rs = n => "₹" + n.toLocaleString("en-IN");
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("litore-cart")) || []; } catch(e){}
+// drop anything saved by an older version of the site
+cart = Array.isArray(cart) ? cart.filter(c => c && PRODUCTS.some(p => p.id === c.id) && SIZES[c.ml]) : [];
+const $ = id => document.getElementById(id);
+const drawer = $("drawer");
+
+$("products").innerHTML = PRODUCTS.map(p => `
+  <article class="card">
+    <img src="${p.img}" alt="Litore ${p.name} eau de parfum bottle" loading="lazy">
+    <h3>${p.name}</h3>
+    <span class="coord">${p.coord}</span>
+    <p class="notes">${p.notes}</p>
+    <div class="row">
+      <select id="size${p.id}" aria-label="Size for ${p.name}">
+        ${Object.entries(SIZES).map(([ml,pr])=>`<option value="${ml}">${ml} ml · ${rs(pr)}</option>`).join("")}
+      </select>
+      <button class="btn" data-add="${p.id}" style="padding:10px 20px">Add</button>
+    </div>
+  </article>`).join("");
+
+$("products").addEventListener("click", e => {
+  const id = e.target.dataset.add; if(!id) return;
+  addToCart(+id, +$("size"+id).value);
+});
+function addToCart(id, ml){ cart.push({id, ml}); save(); render(); drawer.classList.add("open"); }
+function save(){ try{ localStorage.setItem("litore-cart", JSON.stringify(cart)); }catch(e){} }
+const line = c => `${PRODUCTS.find(p=>p.id===c.id).name} ${c.ml} ml`;
+const total = () => cart.reduce((s,c)=>s+SIZES[c.ml],0);
+
+function render(){
+  $("count").textContent = cart.length;
+  $("items").innerHTML = cart.length ? cart.map((c,i)=>
+    `<div class="item"><span>${line(c)}</span><span>${rs(SIZES[c.ml])} <button data-i="${i}">Remove</button></span></div>`).join("")
+    : "<p>Your cart is empty. Add a fragrance to start.</p>";
+  $("total").textContent = rs(total());
+}
+$("items").addEventListener("click", e=>{ if(e.target.dataset.i!==undefined){ cart.splice(+e.target.dataset.i,1); save(); render(); } });
+$("cartBtn").onclick = ()=>drawer.classList.add("open");
+$("closeCart").onclick = ()=>drawer.classList.remove("open");
+
+// The order opens in WhatsApp, pre-written to YOUR number
+$("orderForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  if(!cart.length){ alert("Your cart is empty. Add a fragrance first."); return; }
+  const f = new FormData(e.target);
+  const msg = `New Litore order\n\n${cart.map(c=>`• ${line(c)} - ${rs(SIZES[c.ml])}`).join("\n")}\n\nTotal: ${rs(total())}\n\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\n\nDelivery address:\nFlat/Room/House: ${f.get("flat")}\nBuilding/Society/Street: ${f.get("building")}\nArea/Locality: ${f.get("area")}\nLandmark: ${f.get("landmark") || "-"}\nCity: ${f.get("city")}\nState: ${f.get("state")}\nPincode: ${f.get("pin")}`;
+  window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
+  cart = []; save(); render(); e.target.reset(); drawer.classList.remove("open");
+});
+
+// Scent finder (rule-based, free)
+const QS = [
+  {q:"Where would you rather be?", o:[["A windy beach","fresh"],["A quiet garden","green"],["By a bonfire","warm"],["A rooftop party","floral"]]},
+  {q:"When will you wear it most?", o:[["Daytime, everyday","day"],["Evenings and dates","night"]]},
+  {q:"Pick a texture.", o:[["Linen","fresh"],["Fresh-cut leaves","green"],["Suede","warm"],["Silk","floral"]]}
+];
+let ans = [], step = 0;
+function renderQuiz(){
+  const quiz = $("quiz");
+  if(step < QS.length){
+    quiz.innerHTML = `<div class="q">${QS[step].q}</div><div class="opts">${QS[step].o.map(([t,v])=>`<button data-v="${v}">${t}</button>`).join("")}</div>`;
+  } else {
+    const sc = p => ans.filter(a=>a===p.mood||a===p.vibe).length;
+    const best = PRODUCTS.slice().sort((a,b)=>sc(b)-sc(a))[0];
+    quiz.innerHTML = `<div class="result"><img src="${best.img}" alt="${best.name}"><div><p>Your match</p><h3>${best.name}</h3><p>${best.notes}</p><p style="margin:10px 0">50 ml · ${rs(SIZES[50])}</p>
+      <button class="btn gold" data-quizadd="${best.id}">Add to cart</button>
+      <button class="pill" id="again" style="color:#fff;border-color:#fff;margin-left:8px">Start over</button></div></div>`;
+  }
+}
+$("quiz").addEventListener("click", e=>{
+  if(e.target.dataset.v){ ans.push(e.target.dataset.v); step++; renderQuiz(); }
+  if(e.target.dataset.quizadd){ addToCart(+e.target.dataset.quizadd, 50); }
+  if(e.target.id==="again"){ ans=[]; step=0; renderQuiz(); }
+});
+
+$("contactForm").addEventListener("submit", e=>{
+  e.preventDefault(); const f = new FormData(e.target);
+  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Message from "+f.get("name"))}&body=${encodeURIComponent(f.get("msg")+"\n\n"+f.get("email"))}`;
+});
+$("contactInfo").textContent = EMAIL;
+$("waBtn").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Hi Litore, I have a question about your perfumes.")}`;
+$("yr").textContent = new Date().getFullYear();
+
+// ===== Chat assistant =====
+// Online (on Netlify) the AI answers anything. On your own computer, or if the AI is down,
+// the built-in answers below are used instead.
+const CHAT_API = "/.netlify/functions/chat";
+const chatEl=$("chat"), msgs=$("msgs"); let hist=[];
+function bubble(t,who){ const d=document.createElement("div"); d.className="m "+who; d.textContent=t; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; return d; }
+function localReply(q){
+  q=q.toLowerCase();
+  const has=re=>re.test(q);
+  if(has(/^\s*(hi+e*|hie+|hii+|hey+|hello+|hola|namaste|namaskar|good (morning|afternoon|evening))\W*$/)) return "Hi! Welcome to Litore. How may I help you today?";
+  if(has(/^\s*(ok|okay|thanks|thank you|thx|bye|ok bye|goodbye)\W*$/)) return "You're welcome! Message us anytime if you need anything else.";
+  const p=PRODUCTS.find(x=>q.includes(x.name.toLowerCase()));
+  if(p) return `${p.name} (${p.coord}): ${p.notes}. Sizes: ${Object.entries(SIZES).map(([m,r])=>m+" ml "+rs(r)).join(", ")}.`;
+  if(has(/\b(price|prices|cost|how much|rate|rates|size|sizes|ml|cheap|offer)\b/)) return "Every Litore fragrance comes in four sizes: "+Object.entries(SIZES).map(([m,r])=>m+" ml for "+rs(r)).join(", ")+".";
+  if(has(/\b(deliver|delivery|ship|shipping|dispatch|courier|cod)\b/)) return "We confirm delivery time and charges on WhatsApp when you place your order. Message us on +91 77387 40114.";
+  if(has(/\b(order|orders|buy|purchase|checkout|how to order)\b/)) return "Pick a scent and size, tap Add, then fill in your name, phone and address in the cart and press 'Place order on WhatsApp'. We'll confirm it with you there.";
+  if(has(/\b(last|lasts|lasting|longevity|spray|apply|wear)\b/)) return "Spray on pulse points (wrists and neck) for long-lasting fragrance. For external use only, and keep away from heat and flame.";
+  if(has(/\b(him|men|man|male|boys?|her|women|woman|female|girls?|gift|unisex)\b/)) return "Our current collection is Muro Alto, Paradise, Greenfield and Copacabana. More fragrances for him and for her are coming soon. Tell me what scents you like and I'll suggest one.";
+  if(has(/\b(contact|phone|call|whatsapp|address|where|location|instagram)\b/)) return "WhatsApp or call +91 77387 40114. We're at Om Nagar, Andheri (East), Mumbai - 400059. Instagram: litore.social";
+  const keys=q.split(/\W+/).filter(w=>w.length>2&&!["the","and","for","you","what","with","like","some","pick","help","scent","scents","perfume","perfumes","please","want","need"].includes(w));
+  const score=x=>keys.filter(k=>(x.notes+" "+x.mood+" "+x.vibe+" "+x.name).toLowerCase().includes(k)).length;
+  const best=PRODUCTS.slice().sort((a,c)=>score(c)-score(a))[0];
+  if(keys.length&&score(best)) return `I'd try ${best.name}: ${best.notes}. Want its sizes and prices?`;
+  if(has(/\b(pick|choose|recommend|suggest|suggestion|which|best|help|scent|scents|perfume|perfumes|fragrance|fragrances|hi|hello|hey)\b/)) return "Happy to help you choose. Do you prefer fresh and salty, green and woody, floral and soft, or warm and sweet? You can also try the 'Find my scent' quiz on this page.";
+  return "I'm not sure about that one. For anything else, message us on WhatsApp at +91 77387 40114 and we'll help.";
+}
+async function reply(q){
+  if(CHAT_API){
+    try{
+      const r=await fetch(CHAT_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist.slice(-10)})});
+      const j=await r.json(); if(j.reply) return j.reply;
+    }catch(e){}
+  }
+  return localReply(q);
+}
+async function send(q){
+  bubble(q,"me"); hist.push({role:"user",text:q}); $("chips").style.display="none";
+  const t=bubble("...","bot"); const a=await reply(q); t.textContent=a; hist.push({role:"bot",text:a}); msgs.scrollTop=msgs.scrollHeight;
+}
+$("chips").innerHTML=["Help me pick a scent","Prices and sizes","How do I order?","Contact"].map(c=>`<button type="button">${c}</button>`).join("");
+$("chips").addEventListener("click",e=>{ if(e.target.tagName==="BUTTON") send(e.target.textContent); });
+$("chatForm").addEventListener("submit",e=>{ e.preventDefault(); const i=$("chatInput"); const v=i.value.trim(); i.value=""; if(v) send(v); });
+$("chatOpen").onclick=()=>{ chatEl.classList.add("open"); $("chatOpen").style.display="none"; $("chatInput").focus(); };
+$("chatClose").onclick=()=>{ chatEl.classList.remove("open"); $("chatOpen").style.display=""; };
+bubble("Hi! Welcome to Litore. How may I help you today?","bot");
+render(); renderQuiz();
+</script>
+</body>
+</html>
